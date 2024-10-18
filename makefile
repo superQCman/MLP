@@ -26,7 +26,11 @@ NPU_SRCS=cim.cpp
 NPU_OBJS=obj/cim.o
 NPU_TARGET=bin/cim
 
-all:bin_dir obj_dir cuobj_dir sniper_target gpgpusim_target  NPU_target
+MNSIM_SRCS=mnsim.cpp
+MNSIM_OBJS=obj/mnsim.o
+MNSIM_TARGET=bin/mnsim
+
+all:bin_dir obj_dir cuobj_dir sniper_target gpgpusim_target  NPU_target MNSIM_target
 
 sniper_target: $(C_OBJS)
 	$(CC) -g $(C_OBJS) $(INTERCHIPLET_C_LIB) -o $(C_TARGET) -lpthread
@@ -50,6 +54,10 @@ gpgpusim_target: $(CUDA_OBJS)
 # NPU language target
 NPU_target: $(NPU_OBJS)
 	$(CC) $(NPU_OBJS) $(INTERCHIPLET_C_LIB) -o $(NPU_TARGET)
+
+# MNSIM language target
+MNSIM_target: $(MNSIM_OBJS)
+	$(CC) $(MNSIM_OBJS) $(INTERCHIPLET_C_LIB) -o $(MNSIM_TARGET)
 
 # Directory for binary files.
 bin_dir:

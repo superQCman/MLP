@@ -40,6 +40,12 @@ phase1:
     log: "npu.0.0.log"
     is_to_stdout: false
     clock_rate: 1
+  # Process 6
+  - cmd: "$BENCHMARK_ROOT/bin/mnsim"
+    args: ["0", "3"]
+    log: "mnsim.0.3.log"
+    is_to_stdout: false
+    clock_rate: 1
 
 # Phase 2 configuration.
 phase2:

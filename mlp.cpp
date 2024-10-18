@@ -26,7 +26,7 @@ using json = nlohmann::json;
 #define CFG_CNN_SIZE_Z 3
 #define WT_DATA_SIZE 32*4
 
-void random_init(int8_t * data, int size){
+void random_init(int64_t * data, int size){
     int i;
     for (i = 0; i < size; i++){
         //data[i] = rand();
@@ -638,7 +638,14 @@ int main(int argc, char** argv) {
     std::string json_path = getSimulatorRootPath()+ "temp_data.json";
 
     int srcX = 0, srcY = 0;
-
+    int64_t *test = new int64_t[112*112*64];
+    int64_t *test_ans = new int64_t[112*112*128];
+    random_init(test, 112*112*64);
+    InterChiplet::sendMessage(0, 3, srcX, srcY, test, 112*112*64*sizeof(int64_t));
+    InterChiplet::receiveMessage(srcX, srcY, 0, 3, test_ans, 112*112*128*sizeof(int64_t));
+    delete[] test;
+    delete[] test_ans;
+    std::cout<<"-------------------------------------mnsim over-------------------------------------"<<std::endl;
     std::vector<int> hidden_size = {10, 15};
     std::vector<std::vector<double>> x_train, x_test;
     std::vector<std::vector<double>> y_train, y_test;
